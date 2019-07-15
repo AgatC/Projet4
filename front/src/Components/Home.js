@@ -1,36 +1,22 @@
 import React from 'react';
-import { Header, Icon, Image, Container } from 'semantic-ui-react';
+import { Header, Icon, Button, Container, Image } from 'semantic-ui-react';
 
-const Home = () => (
+const Home = ({ playlist }) => (
   <div>
     <Container>
       <Header as='h2' icon textAlign='center'>
-        <Icon name='users' circular />
+        <Icon name='music' circular />
         <Header.Content>My-Music</Header.Content>
       </Header>
-      <Image centered size='large' src='https://react.semantic-ui.com/images/wireframe/centered-paragraph.png' />
+      <Image centered size='large' src='https://cdn.pixabay.com/photo/2019/03/08/21/13/record-4043223_960_720.jpg' />
     </Container>
-  </div>
-  <div>
     <Container>
-      <Card>
-        <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
-        <Card.Content>
-          <Card.Header>Matthew</Card.Header>
-          <Card.Meta>
-            <span className='date'>Joined in 2015</span>
-          </Card.Meta>
-          <Card.Description>
-            Matthew is a musician living in Nashville.
-      </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <a>
-            <Icon name='user' />
-            22 Friends
-      </a>
-        </Card.Content>
-      </Card>
+      <div>
+        {playlist && playlist.map(onePlaylist => (
+          <Button>{onePlaylist.title}</Button>
+        ))
+        }
+      </div>
     </Container>
   </div>
 )

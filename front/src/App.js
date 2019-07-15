@@ -1,29 +1,40 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { Navbar } from 'semantic-ui-react';
+import React, { Component } from 'react';
+// import { Route } from 'react-router-dom';
+import axios from 'axios';
+import { connect } from 'react-redux'
 import './App.css';
-import Navbar from './Components/Navbar';
 import Home from './Components/Home';
-import OneCategory from './Components/OneCategory';
-import OneTrack from './Components/OneTrack';
-import Favorite from './Components/Favorite';
+import { getPlaylistSuccess } from './Action/index';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div className="navbar">
-          <Navbar />
-        </div>
-      </header>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/category/:id" component={OneCategory} />
-        <Route path="/track/:id" component={OneTrack} />
-        <Route path="/myfavorites" component={Favorite} />
-      </Switch>
-    </div>
-  );
+class App extends Component {
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    axios.get('/api/playlist/')
+      .then(res => res.data)
+      .then(playlist =>
+        dispatch(getPlaylistSuccess(playlist)
+        ));
+  }
+
+  render() {
+    const { playlist } = this.props;
+    return (
+      <div className="App">
+        <header>
+          {/* <Navbar /> */}
+
+        </header>
+        {/* <Switch> */}
+        <Home playlist={playlist} />
+        {/* </Switch> */}
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => (
+  { playlist: state }
+)
+
+export default connect(mapStateToProps)(App);
