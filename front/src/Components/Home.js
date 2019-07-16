@@ -1,5 +1,7 @@
 import React from 'react';
-import { Header, Icon, Button, Container, Image } from 'semantic-ui-react';
+import {
+  Header, Icon, Button, Container, Image
+} from 'semantic-ui-react';
 
 const Home = ({ playlist }) => (
   <div>
