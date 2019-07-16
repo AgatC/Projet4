@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import './App.css';
 import Login from './Components/Login';
-import { getPlaylistSuccess } from './Action/index';
 import Home from './Components/Home';
+import OneCategory from './Components/OneCategory';
+import OneTrack from './Components/OneTrack';
 
 class App extends Component {
   constructor(props) {
@@ -18,14 +18,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { dispatch, token } = this.props;
+    const { token } = this.props;
     axios.get('/api/playlist/', {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-      .then(res => res.data)
-      .then(playlist => dispatch(getPlaylistSuccess(playlist)));
+      .then(res => res.data);
   }
 
   setToken(token) {
@@ -34,23 +33,24 @@ class App extends Component {
 
   render() {
     const { token } = this.state;
-    const { playlist } = this.props;
     return (
       <div className="App">
         <header>
           {
             token
-              ? <Home token={token} playlist={playlist} />
+              ? <Home token={token} />
               : <Login setToken={this.setToken} />
           }
         </header>
+        <Switch>
+          {/* <Route path="/" exact component={Home} /> */}
+          <Route path="/track/playlist/:id" component={OneCategory} />
+          <Route path="/track/:id" component={OneTrack} />
+        </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => (
-  { playlist: state }
-);
 
-export default connect(mapStateToProps)(App);
+export default App;

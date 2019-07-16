@@ -7,7 +7,7 @@ if (token) {
 }
 const initialState = token ? jwtDecode(token) : null;
 
-export default function reducer(state = initialState, action) {
+export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case 'LOGIN':
       return action.user;
