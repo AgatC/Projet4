@@ -2,6 +2,7 @@ import { GET_PLAYLIST_SUCCESS } from './types';
 import { GET_TRACKS_SUCCESS } from './types';
 import { CHANGE_VALUE } from './types';
 import { CREATE_TRACK_SUCCESS } from './types';
+import { DELETE_TRACK_SUCCESS } from './types';
 
 export function getPlaylistSuccess(playlist) {
   return {
@@ -29,5 +30,12 @@ export function createTrackSuccess(newTrack) {
   return {
     type: CREATE_TRACK_SUCCESS,
     newTrack
+  }
+}
+
+export function deleteTrackSuccess(id) {
+  return {
+    type: DELETE_TRACK_SUCCESS,
+    id: id
   }
 }

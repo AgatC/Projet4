@@ -55,7 +55,7 @@ class OneCategory extends Component {
         </Grid>
         <Grid centered>
           <Link to="/track/new">
-            <Icon name="plus circle" size="big" />
+            <Icon color="grey" name="plus circle" size="big" />
           </Link>
         </Grid>
       </Container>

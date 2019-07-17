@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
-import { Container, Card, Image, Icon } from 'semantic-ui-react'
+import { Container, Card, Image, Icon, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { deleteTrackSuccess } from '../Action/index';
+import axios from 'axios';
+
 
 class OneTrack extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteTrack = this.deleteTrack.bind(this);
+  }
+
+  deleteTrack(index) {
+    axios.delete(`/api/track/${index}`)
+      .then(res => res.data)
+      .then(() => this.props.deleteTrackSuccess(index));
+  }
 
   render() {
     const { tracks } = this.props
@@ -16,12 +30,21 @@ class OneTrack extends Component {
                 <Card.Meta>
                   <span>{oneTrack.artist}</span>
                 </Card.Meta>
+                <Card.Meta>
+                  <a href={oneTrack.youtube_url}>
+                    <Icon size="big" name='video play' />
+
+                  </a>
+                </Card.Meta>
               </Card.Content>
               <Card.Content extra>
-                <a href={oneTrack.youtube_url}>
-                  <Icon name='video play' />
-
-                </a>
+                <Button
+                  icon
+                  circular
+                  onClick={() => this.deleteTrack(oneTrack.id)}>
+                  <Icon name='delete' />
+                </Button>
+                Delete
               </Card.Content>
             </Card>
           ))}
@@ -33,5 +56,10 @@ class OneTrack extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteTrackSuccess: index => dispatch(deleteTrackSuccess(index))
+  }
+}
 
-export default OneTrack;
+export default connect(null, mapDispatchToProps)(OneTrack);

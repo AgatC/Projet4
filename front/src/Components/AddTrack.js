@@ -58,13 +58,12 @@ class AddTrack extends Component {
             <Form.Input name="youtube_url" value={youtube_url} label="URL Youtube" onChange={this.handleChange} placeholder="Youtube" />
           </Form.Group>
           <Form.Group>
-            <label>Name of the playlist</label>
             <Form.Field
               control={Select}
               label='Playlist'
               options={options}
               value={playlist_id}
-              placeholder='Playlist'
+              placeholder='Name of the playlist'
               onChange={this.handleChangePlaylist}
             />
           </Form.Group>
