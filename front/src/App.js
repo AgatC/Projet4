@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Home from './Components/Home';
 import OneCategory from './Components/OneCategory';
 import OneTrack from './Components/OneTrack';
+import Navbar from './Components/Navbar';
 
 class App extends Component {
   constructor(props) {
@@ -33,17 +34,18 @@ class App extends Component {
 
   render() {
     const { token } = this.state;
+    if (!token) {
+      return (
+        <Login setToken={this.setToken} />
+      )
+    }
     return (
       <div className="App">
         <header>
-          {
-            token
-              ? <Home token={token} />
-              : <Login setToken={this.setToken} />
-          }
+          <Navbar token={token} />
         </header>
         <Switch>
-          {/* <Route path="/" exact component={Home} /> */}
+          <Route path="/" exact component={Home} />
           <Route path="/track/playlist/:id" component={OneCategory} />
           <Route path="/track/:id" component={OneTrack} />
         </Switch>

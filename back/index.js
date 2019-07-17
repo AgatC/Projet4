@@ -8,7 +8,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 require('./env');
 const trackRouter = require('./routes/track');
 const playlistRouter = require('./routes/playlist');
-
 const authRouter = require('./routes/auth');
 const db = require('./db');
 

@@ -30,7 +30,7 @@ class Home extends Component {
         <Container>
           <div>
             {playlist && playlist.map(onePlaylist => (
-              <Link to={`/track/playlist/${onePlaylist.id}`}>
+              <Link key={onePlaylist.id} to={`/track/playlist/${onePlaylist.id}`}>
                 <Button>{onePlaylist.title}</Button>
               </Link>
             ))
@@ -43,7 +43,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => (
-  { playlist: state }
+  { playlist: state.playlist }
 );
 
 export default connect(mapStateToProps)(Home);
