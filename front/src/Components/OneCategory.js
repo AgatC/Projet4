@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
-  Grid, Container, Header
+  Grid, Container, Header, Button, Icon
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -40,9 +41,22 @@ class OneCategory extends Component {
     }
     return (
       <Container>
-        <Header style={{ textAlign: 'center' }} size="huge">{onePlaylist.title}</Header>
-        <Grid columns={6}>
+        <Header style={{ textAlign: 'center' }} as="h1" divided>{onePlaylist.title}</Header>
+        <Grid columns={4} centered>
+          {playlist && playlist.map(onePlaylist => (
+            <Link key={onePlaylist.id} to={`/track/playlist/${onePlaylist.id}`}>
+              <Button>{onePlaylist.title}</Button>
+            </Link>
+          ))
+          }
+        </Grid>
+        <Grid>
           <OneTrack playlist={playlist} tracks={tracks} />
+        </Grid>
+        <Grid centered>
+          <Link to="/track/new">
+            <Icon name="plus circle" size="big" />
+          </Link>
         </Grid>
       </Container>
     );

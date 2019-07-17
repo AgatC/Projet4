@@ -7,6 +7,7 @@ import Home from './Components/Home';
 import OneCategory from './Components/OneCategory';
 import OneTrack from './Components/OneTrack';
 import Navbar from './Components/Navbar';
+import AddTrack from './Components/AddTrack';
 
 class App extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/track/playlist/:id" component={OneCategory} />
           <Route path="/track/:id" component={OneTrack} />
+          <Route path="/track/new" exact component={AddTrack} />
         </Switch>
       </div>
     );
