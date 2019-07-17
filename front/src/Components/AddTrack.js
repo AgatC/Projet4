@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import {
-  Button, Form, Container, Header
+  Button, Form, Container, Header, Select
 } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { changeValue, createTrackSuccess } from '../Action/index';
+
+const options = [
+  { key: 'Electro', text: 'Electro', value: 8 },
+  { key: 'Rap', text: 'Rap', value: 7 },
+  { key: 'Pop', text: 'Pop', value: 6 },
+  { key: 'Nouvelle Vague', text: 'Nouvelle Vague', value: 9 },
+]
 
 class AddTrack extends Component {
   constructor(props) {
@@ -13,12 +20,17 @@ class AddTrack extends Component {
 
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangePlaylist = this.handleChangePlaylist.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     const { name, value } = e.target;
     this.props.change(name, value)
+  }
+
+  handleChangePlaylist(e, { value }) {
+    this.props.change("playlist_id", value)
   }
 
   handleSubmit(e) {
@@ -38,38 +50,22 @@ class AddTrack extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Header textAlign="center" size="huge">Add a Track</Header>
           <Form.Group widths="equal">
-            <Form.Input name="title" value={title} onChange={this.handleChange} placeholder="Title of the song" />
-            <Form.Input name="artist" value={artist} onChange={this.handleChange} placeholder="Artist" />
+            <Form.Input name="title" value={title} label="Title " onChange={this.handleChange} placeholder="Title of the song" />
+            <Form.Input name="artist" value={artist} label="Artist" onChange={this.handleChange} placeholder="Artist" />
           </Form.Group>
           <Form.Group unstackable widths={2}>
-            <Form.Input name="album_picture" value={album_picture} label="album_picture" onChange={this.handleChange} placeholder="Album Picture" />
-            <Form.Input name="youtube_url" value={youtube_url} label="youtube_url" onChange={this.handleChange} placeholder="Youtube" />
+            <Form.Input name="album_picture" value={album_picture} label="Album Picture" onChange={this.handleChange} placeholder="Album Picture" />
+            <Form.Input name="youtube_url" value={youtube_url} label="URL Youtube" onChange={this.handleChange} placeholder="Youtube" />
           </Form.Group>
-          <Form.Group inline>
+          <Form.Group>
             <label>Name of the playlist</label>
-            <Form.Radio
-              label='Pop'
-              value='playlist_id'
-              checked={playlist_id === 'Pop'}
-              onChange={this.handleChange}
-            />
-            <Form.Radio
-              label='Rap'
-              value='playlist_id'
-              checked={playlist_id === 'Rap'}
-              onChange={this.handleChange}
-            />
-            <Form.Radio
-              label='Electro'
-              value='playlist_id'
-              checked={playlist_id === 'Electro'}
-              onChange={this.handleChange}
-            />
-            <Form.Radio
-              label='Nouvelle Vague'
-              value='playlist_id'
-              checked={playlist_id === 'Nouvelle Vague'}
-              onChange={this.handleChange}
+            <Form.Field
+              control={Select}
+              label='Playlist'
+              options={options}
+              value={playlist_id}
+              placeholder='Playlist'
+              onChange={this.handleChangePlaylist}
             />
           </Form.Group>
           <Button type="submit">Submit</Button>

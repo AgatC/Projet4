@@ -8,7 +8,7 @@ class OneTrack extends Component {
     return (
       <Container>
         <Card.Group itemsPerRow={4}>
-          {tracks.map(oneTrack => (
+          {tracks && tracks.map(oneTrack => (
             <Card>
               <Image src={oneTrack.album_picture} />
               <Card.Content>

@@ -48,8 +48,8 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/track/playlist/:id" component={OneCategory} />
+          <Route path="/track/new" component={AddTrack} />
           <Route path="/track/:id" component={OneTrack} />
-          <Route path="/track/new" exact component={AddTrack} />
         </Switch>
       </div>
     );

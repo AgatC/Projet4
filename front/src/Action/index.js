@@ -17,14 +17,11 @@ export function getTracksSuccess(tracks) {
   }
 }
 
-export function changeValue(playlist_id, title, artist, album_picture, youtube_url) {
+export function changeValue(name, value) {
   return {
     type: CHANGE_VALUE,
-    playlist_id,
-    title,
-    artist,
-    album_picture,
-    youtube_url
+    name,
+    value
   }
 }
 
