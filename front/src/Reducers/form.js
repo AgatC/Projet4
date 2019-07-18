@@ -1,4 +1,4 @@
-import { CHANGE_VALUE } from '../Action/types'
+import { CHANGE_VALUE, GET_ONE_TRACK_SUCCESS } from '../Action/types'
 
 const initialState = {
   playlist_id: '',
@@ -15,6 +15,8 @@ function reducer(state = initialState, action) {
         ...state,
         [action.name]: action.value
       }
+    case GET_ONE_TRACK_SUCCESS:
+      return action.oneTrack;
     default:
       return state
   }

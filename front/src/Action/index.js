@@ -1,5 +1,6 @@
 import { GET_PLAYLIST_SUCCESS, EDIT_TRACK_SUCCESS } from './types';
 import { GET_TRACKS_SUCCESS } from './types';
+import { GET_ONE_TRACK_SUCCESS } from './types';
 import { CHANGE_VALUE } from './types';
 import { CREATE_TRACK_SUCCESS } from './types';
 import { DELETE_TRACK_SUCCESS } from './types';
@@ -15,6 +16,13 @@ export function getTracksSuccess(tracks) {
   return {
     type: GET_TRACKS_SUCCESS,
     tracks
+  }
+}
+
+export function getOneTrackSuccess(oneTrack) {
+  return {
+    type: GET_ONE_TRACK_SUCCESS,
+    oneTrack
   }
 }
 

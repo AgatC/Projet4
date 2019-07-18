@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { changeValue, editTrackSuccess } from '../Action/index';
+import { changeValue, editTrackSuccess, getOneTrackSuccess } from '../Action/index';
 
 const options = [
   { key: 'Electro', text: 'Electro', value: 8 },
@@ -16,12 +16,23 @@ const options = [
 class EditTrack extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleChangePlaylist = this.handleChangePlaylist.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getOneTrack = this.getOneTrack.bind(this);
+  }
+
+  componentDidMount() {
+    this.getOneTrack()
+  }
+
+  getOneTrack() {
+    const { match } = this.props;
+    const { id } = match.params;
+    const { playlist_id, title, artist, album_picture, youtube_url } = this.props;
+    axios.get(`/api/track/${id}`, { playlist_id, title, artist, album_picture, youtube_url })
+      .then(res => res.data)
+      .then(oneTrack => this.props.getOne(oneTrack));
   }
 
   handleChange(e) {
@@ -52,12 +63,12 @@ class EditTrack extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Header textAlign="center" size="huge">Edit a Track</Header>
           <Form.Group widths="equal">
-            <Form.Input name="title" value={title} label="Title " onChange={this.handleChange} placeholder="Title of the song" />
+            <Form.Input name="title" value={title} label="Title" onChange={this.handleChange} placeholder="Title" />
             <Form.Input name="artist" value={artist} label="Artist" onChange={this.handleChange} placeholder="Artist" />
           </Form.Group>
           <Form.Group unstackable widths={2}>
             <Form.Input name="album_picture" value={album_picture} label="Album Picture" onChange={this.handleChange} placeholder="Album Picture" />
-            <Form.Input name="youtube_url" value={youtube_url} label="URL Youtube" onChange={this.handleChange} placeholder="Youtube" />
+            <Form.Input name="youtube_url" value={youtube_url} label="URL Youtube" onChange={this.handleChange} placeholder="Url Youtube" />
           </Form.Group>
           <Form.Group>
             <Form.Field
@@ -65,7 +76,7 @@ class EditTrack extends Component {
               label='Playlist'
               options={options}
               value={playlist_id}
-              placeholder='Name of the playlist'
+              placeholder="Playlist"
               onChange={this.handleChangePlaylist}
             />
           </Form.Group>
@@ -78,12 +89,14 @@ class EditTrack extends Component {
 
 const mapStateToProps = state => {
   return state.form
-};
+}
+
 
 
 const mapDispatchToProps = {
   change: changeValue,
   edit: editTrackSuccess,
+  getOne: getOneTrackSuccess
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditTrack);
