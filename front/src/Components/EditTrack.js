@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { changeValue, createTrackSuccess } from '../Action/index';
+import { changeValue, editTrackSuccess } from '../Action/index';
 
 const options = [
   { key: 'Electro', text: 'Electro', value: 8 },
@@ -13,7 +13,7 @@ const options = [
   { key: 'Nouvelle Vague', text: 'Nouvelle Vague', value: 9 },
 ]
 
-class AddTrack extends Component {
+class EditTrack extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,21 +35,14 @@ class AddTrack extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { match } = this.props;
+    const { id } = match.params;
     const { playlist_id, title, artist, album_picture, youtube_url } = this.props;
-    axios.post('/api/track', { playlist_id, title, artist, album_picture, youtube_url })
+    axios.put(`/api/track/${id}`, { playlist_id, title, artist, album_picture, youtube_url })
       .then(res => res.data)
-      .then(newTrack =>
-        this.props.create(newTrack)
+      .then(editTrack =>
+        this.props.edit(editTrack)
       )
-      .then(res => {
-        if (res.error) {
-          alert('Error');
-        } else {
-          alert(
-            'Added successfully'
-          );
-        }
-      });
   }
 
   render() {
@@ -57,7 +50,7 @@ class AddTrack extends Component {
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
-          <Header textAlign="center" size="huge">Add a Track</Header>
+          <Header textAlign="center" size="huge">Edit a Track</Header>
           <Form.Group widths="equal">
             <Form.Input name="title" value={title} label="Title " onChange={this.handleChange} placeholder="Title of the song" />
             <Form.Input name="artist" value={artist} label="Artist" onChange={this.handleChange} placeholder="Artist" />
@@ -90,7 +83,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   change: changeValue,
-  create: createTrackSuccess,
+  edit: editTrackSuccess,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTrack);
+export default connect(mapStateToProps, mapDispatchToProps)(EditTrack);

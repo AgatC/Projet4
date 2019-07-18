@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Card, Image, Icon, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { deleteTrackSuccess } from '../Action/index';
 import axios from 'axios';
 
@@ -14,7 +15,16 @@ class OneTrack extends Component {
   deleteTrack(index) {
     axios.delete(`/api/track/${index}`)
       .then(res => res.data)
-      .then(() => this.props.deleteTrackSuccess(index));
+      .then(() => this.props.deleteTrackSuccess(index))
+      .then(res => {
+        if (res.error) {
+          alert('Error');
+        } else {
+          alert(
+            'Deleted successfully'
+          );
+        }
+      });
   }
 
   render() {
@@ -44,7 +54,11 @@ class OneTrack extends Component {
                   onClick={() => this.deleteTrack(oneTrack.id)}>
                   <Icon name='delete' />
                 </Button>
-                Delete
+                <Link to={`/track/edit-track/${oneTrack.id}`}>
+                  <Button icon circular>
+                    <Icon name="pencil alternate" />
+                  </Button>
+                </Link>
               </Card.Content>
             </Card>
           ))}

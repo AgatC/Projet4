@@ -1,4 +1,4 @@
-import { GET_PLAYLIST_SUCCESS } from './types';
+import { GET_PLAYLIST_SUCCESS, EDIT_TRACK_SUCCESS } from './types';
 import { GET_TRACKS_SUCCESS } from './types';
 import { CHANGE_VALUE } from './types';
 import { CREATE_TRACK_SUCCESS } from './types';
@@ -37,5 +37,13 @@ export function deleteTrackSuccess(id) {
   return {
     type: DELETE_TRACK_SUCCESS,
     id: id
+  }
+}
+
+export function editTrackSuccess(track, editTrack) {
+  return {
+    type: EDIT_TRACK_SUCCESS,
+    track: track,
+    editTrack: editTrack
   }
 }

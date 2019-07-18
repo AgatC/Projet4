@@ -69,8 +69,8 @@ router.post('/', (req, res) => {
 });
 
 // en tant qu'utilisateur, je veux modifier un morceau d'une playlist
-router.put('/:id/:playlistid', (req, res) => {
-  db.query('UPDATE track SET ? WHERE track.id = ? AND track.playlist_id = ?', [req.body, req.params.id, req.params.playlistid], (err, status) => {
+router.put('/:id', (req, res) => {
+  db.query('UPDATE track SET ? WHERE track.id = ?', [req.body, req.params.id], (err, status) => {
 
     if (err) {
       return res.status(500).json({
