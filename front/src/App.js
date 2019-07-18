@@ -5,7 +5,7 @@ import './App.css';
 import Login from './Components/Login';
 import Home from './Components/Home';
 import OneCategory from './Components/OneCategory';
-import OneTrack from './Components/OneTrack';
+import PlaylistTracks from './Components/PlaylistTracks';
 import Navbar from './Components/Navbar';
 import AddTrack from './Components/AddTrack';
 import EditTrack from './Components/EditTrack';
@@ -51,7 +51,7 @@ class App extends Component {
           <Route path="/track/playlist/:id" component={OneCategory} />
           <Route path="/track/new" component={AddTrack} />
           <Route path="/track/edit-track/:id" component={EditTrack} />
-          <Route path="/track/:id" component={OneTrack} />
+          <Route path="/track/:id" component={PlaylistTracks} />
         </Switch>
       </div>
     );

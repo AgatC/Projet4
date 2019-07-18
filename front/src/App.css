@@ -1,3 +1,35 @@
 .App {
   text-align: center;
 }
+
+body {
+  background-image: url('https://cdn.pixabay.com/photo/2016/11/23/00/58/record-player-1851576_960_720.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgb(105,105,105)
+}
+.ui.center.aligned.header {
+  margin-top : 3%; 
+}
+
+button.ui.button.homeButton {
+  margin-top: 10% !important;
+  margin-right: 5% !important;
+  margin-left: 5% !important;
+}
+
+.ui.button {
+  margin-bottom: 15%;
+  margin-top: 15%;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+h1.ui.header {
+  font-size: 3rem; 
+  color: white;
+}
+
+.menu {
+  background: black !important;
+}

@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { getTracksSuccess } from '../Action/index';
-import OneTrack from './OneTrack';
+import PlaylistTracks from './PlaylistTracks';
 import Home from './Home';
 
 class OneCategory extends Component {
@@ -51,11 +51,18 @@ class OneCategory extends Component {
           }
         </Grid>
         <Grid>
-          <OneTrack playlist={playlist} tracks={tracks} />
+          <PlaylistTracks playlist={playlist} tracks={tracks} />
         </Grid>
         <Grid centered>
           <Link to="/track/new">
-            <Icon color="grey" name="plus circle" size="big" />
+            <Icon
+              style={{
+                color: 'white',
+                marginTop: '8px'
+              }}
+              name="plus circle"
+              size="big"
+            />
           </Link>
         </Grid>
       </Container>

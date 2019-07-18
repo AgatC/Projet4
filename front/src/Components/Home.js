@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-  Header, Icon, Button, Container, Image
+  Header, Icon, Button, Container
 } from 'semantic-ui-react';
 import { getPlaylistSuccess } from '../Action/index';
 
@@ -21,17 +21,16 @@ class Home extends Component {
     return (
       <div>
         <Container>
-          <Header as='h2' icon textAlign='center'>
-            <Icon name='music' circular />
-            <Header.Content>My-Music</Header.Content>
+          <Header as='h1' icon textAlign='center'>
+            <Icon name='music' />
+            <Header.Content>My Music</Header.Content>
           </Header>
-          <Image centered size="large" src="https://cdn.pixabay.com/photo/2019/03/08/21/13/record-4043223_960_720.jpg" />
         </Container>
         <Container>
           <div>
             {playlist && playlist.map(onePlaylist => (
               <Link key={onePlaylist.id} to={`/track/playlist/${onePlaylist.id}`}>
-                <Button>{onePlaylist.title}</Button>
+                <Button className="homeButton">{onePlaylist.title}</Button>
               </Link>
             ))
             }

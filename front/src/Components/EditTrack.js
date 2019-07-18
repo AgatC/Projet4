@@ -32,7 +32,7 @@ class EditTrack extends Component {
     const { playlist_id, title, artist, album_picture, youtube_url } = this.props;
     axios.get(`/api/track/${id}`, { playlist_id, title, artist, album_picture, youtube_url })
       .then(res => res.data)
-      .then(oneTrack => this.props.getOne(oneTrack));
+      .then(oneTrack => this.props.getOne(oneTrack))
   }
 
   handleChange(e) {
@@ -54,6 +54,15 @@ class EditTrack extends Component {
       .then(editTrack =>
         this.props.edit(editTrack)
       )
+      .then(res => {
+        if (res.error) {
+          alert('Error');
+        } else {
+          alert(
+            'Edit successfully'
+          );
+        }
+      });
   }
 
   render() {
