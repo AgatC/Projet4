@@ -4,6 +4,9 @@ import { GET_ONE_TRACK_SUCCESS } from './types';
 import { CHANGE_VALUE } from './types';
 import { CREATE_TRACK_SUCCESS } from './types';
 import { DELETE_TRACK_SUCCESS } from './types';
+import { DELETE_PLAYLIST_SUCCESS } from './types';
+import { CREATE_PLAYLIST_SUCCESS } from './types';
+import { CHANGE_VALUE_PLAYLIST } from './types';
 
 export function getPlaylistSuccess(playlist) {
   return {
@@ -34,6 +37,15 @@ export function changeValue(name, value) {
   }
 }
 
+export function changeValuePlaylist(name, value) {
+  return {
+    type: CHANGE_VALUE_PLAYLIST,
+    name,
+    value
+  }
+}
+
+
 export function createTrackSuccess(newTrack) {
   return {
     type: CREATE_TRACK_SUCCESS,
@@ -53,5 +65,19 @@ export function editTrackSuccess(track, editTrack) {
     type: EDIT_TRACK_SUCCESS,
     track: track,
     editTrack: editTrack
+  }
+}
+
+export function deletePlaylistSuccess(id) {
+  return {
+    type: DELETE_PLAYLIST_SUCCESS,
+    id: id
+  }
+}
+
+export function createPlaylistSuccess(newPlaylist) {
+  return {
+    type: CREATE_PLAYLIST_SUCCESS,
+    newPlaylist
   }
 }

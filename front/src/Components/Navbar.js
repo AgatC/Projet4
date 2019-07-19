@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Dropdown } from 'semantic-ui-react'
+import { Menu, Dropdown, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -34,6 +34,11 @@ class Navbar extends Component {
 
             ))
             }
+            <Dropdown.Item className="dropdownItem">
+              <Link to="/playlist/edit">
+                <Icon name="plus" />
+              </Link>
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Menu.Item name='Profile' icon='user' />

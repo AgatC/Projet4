@@ -33,3 +33,10 @@ h1.ui.header {
 .menu {
   background: black !important;
 }
+
+.ui.dropdown .menu>.item {
+  background: white !important;
+}
+.ui.container {
+  margin-top : 15px;
+}

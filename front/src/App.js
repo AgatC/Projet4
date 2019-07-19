@@ -9,6 +9,7 @@ import PlaylistTracks from './Components/PlaylistTracks';
 import Navbar from './Components/Navbar';
 import AddTrack from './Components/AddTrack';
 import EditTrack from './Components/EditTrack';
+import OnePlaylist from './Components/OnePlaylist';
 
 class App extends Component {
   constructor(props) {
@@ -52,6 +53,7 @@ class App extends Component {
           <Route path="/track/new" component={AddTrack} />
           <Route path="/track/edit-track/:id" component={EditTrack} />
           <Route path="/track/:id" component={PlaylistTracks} />
+          <Route path="/playlist/edit" component={OnePlaylist} />
         </Switch>
       </div>
     );
