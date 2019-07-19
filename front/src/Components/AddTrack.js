@@ -13,16 +13,33 @@ const options = [
   { key: 'Nouvelle Vague', text: 'Nouvelle Vague', value: 9 },
 ]
 
+
 class AddTrack extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      // options: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChangePlaylist = this.handleChangePlaylist.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.getOptionPlaylist = this.getOptionPlaylist.bind(this);
+    // this.handleChangeOptionPlaylist = this.handleChangeOptionPlaylist.bind(this);
   }
+  // componentDidMount() {
+  //   this.getOptionPlaylist()
+  // }
+
+  // getOptionPlaylist() {
+  //   axios.get('/api/playlist/')
+  //     .then(res => res.data)
+  //     .then(option => this.setState({ options: option }));
+  // }
+
+  // handleChangeOptionPlaylist(event, { value }) {
+  //   this.setState({ playlist_id: value });
+  // }
+
 
   handleChange(e) {
     const { name, value } = e.target;
@@ -54,6 +71,8 @@ class AddTrack extends Component {
 
   render() {
     const { playlist_id, title, artist, album_picture, youtube_url } = this.props
+    // const { options } = this.state;
+    const { playlist } = this.props;
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
@@ -83,9 +102,16 @@ class AddTrack extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return state.form
-};
+const mapStateToProps = state => (
+  {
+    playlist_id: state.form.playlist_id,
+    title: state.form.title,
+    artist: state.form.artist,
+    album_picture: state.form.album_picture,
+    youtube_url: state.form.youtube_url,
+    playlist: state.playlist,
+  }
+);
 
 
 const mapDispatchToProps = {

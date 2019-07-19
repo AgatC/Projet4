@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+
 }
 
 body {
@@ -38,5 +39,12 @@ h1.ui.header {
   background: white !important;
 }
 .ui.container {
-  margin-top : 15px;
+  margin-top : 10px;
+}
+.ui.selection.active.dropdown .menu {
+  color: black !important;
+}
+
+.div.visible.menu.transition {
+  color: black !important;
 }

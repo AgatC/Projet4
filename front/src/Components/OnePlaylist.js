@@ -79,7 +79,7 @@ class OnePlaylist extends Component {
             <Header textAlign="center" size="huge">Add a Playlist</Header>
             <Form.Group widths="equal">
               <Form.Input name="title" value={title} label="Title " onChange={this.handleChange} placeholder="Title of the playlist" />
-              <Form.Input name="genre" value={genre} label="genre" onChange={this.handleChange} placeholder="Genre" />
+              <Form.Input name="genre" value={genre} label="Genre" onChange={this.handleChange} placeholder="Genre" />
             </Form.Group>
             <Button type="submit">Submit</Button>
           </Form>
