@@ -6,39 +6,39 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { changeValue, createTrackSuccess } from '../Action/index';
 
-const options = [
-  { key: 'Electro', text: 'Electro', value: 8 },
-  { key: 'Rap', text: 'Rap', value: 7 },
-  { key: 'Pop', text: 'Pop', value: 6 },
-  { key: 'Nouvelle Vague', text: 'Nouvelle Vague', value: 9 },
-]
+// const options = [
+//   { key: 'Electro', text: 'Electro', value: 8 },
+//   { key: 'Rap', text: 'Rap', value: 7 },
+//   { key: 'Pop', text: 'Pop', value: 6 },
+//   { key: 'Nouvelle Vague', text: 'Nouvelle Vague', value: 9 },
+// ]
 
 
 class AddTrack extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // options: [],
+      options: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChangePlaylist = this.handleChangePlaylist.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.getOptionPlaylist = this.getOptionPlaylist.bind(this);
-    // this.handleChangeOptionPlaylist = this.handleChangeOptionPlaylist.bind(this);
+    this.getOptionPlaylist = this.getOptionPlaylist.bind(this);
+    this.handleChangeOptionPlaylist = this.handleChangeOptionPlaylist.bind(this);
   }
-  // componentDidMount() {
-  //   this.getOptionPlaylist()
-  // }
+  componentDidMount() {
+    this.getOptionPlaylist()
+  }
 
-  // getOptionPlaylist() {
-  //   axios.get('/api/playlist/')
-  //     .then(res => res.data)
-  //     .then(option => this.setState({ options: option }));
-  // }
+  getOptionPlaylist() {
+    axios.get('/api/playlist/option')
+      .then(res => res.data)
+      .then(option => this.setState({ options: option }));
+  }
 
-  // handleChangeOptionPlaylist(event, { value }) {
-  //   this.setState({ playlist_id: value });
-  // }
+  handleChangeOptionPlaylist(event, { value }) {
+    this.setState({ playlist_id: value });
+  }
 
 
   handleChange(e) {
@@ -70,9 +70,8 @@ class AddTrack extends Component {
   }
 
   render() {
-    const { playlist_id, title, artist, album_picture, youtube_url } = this.props
-    // const { options } = this.state;
-    const { playlist } = this.props;
+    const { playlist_id, title, artist, album_picture, youtube_url } = this.props;
+    const { options } = this.state;
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
@@ -85,16 +84,17 @@ class AddTrack extends Component {
             <Form.Input name="album_picture" value={album_picture} label="Album Picture" onChange={this.handleChange} placeholder="Album Picture" />
             <Form.Input name="youtube_url" value={youtube_url} label="URL Youtube" onChange={this.handleChange} placeholder="Youtube" />
           </Form.Group>
-          <Form.Group>
-            <Form.Field
-              control={Select}
-              label='Playlist'
-              options={options}
-              value={playlist_id}
-              placeholder='Name of the playlist'
-              onChange={this.handleChangePlaylist}
-            />
-          </Form.Group>
+
+
+          <Form.Field
+            control={Select}
+            label='Playlist'
+            options={options}
+            value={playlist_id}
+            placeholder='Name of the playlist'
+            onChange={this.handleChangePlaylist}
+          />
+
           <Button type="submit">Submit</Button>
         </Form>
       </Container>

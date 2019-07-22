@@ -18,6 +18,20 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/option', (req, res) => {
+
+  db.query('SELECT id AS value, title AS text FROM playlist', (err, results) => {
+
+    if (err) {
+      return res.status(500).json({
+        error: err.message,
+        sql: err.sql
+      })
+    }
+    return res.json(results);
+  });
+});
+
 // en tant qu'utilisateur, je veux pouvoir consulter une playlist en renseignant son id dans l'url
 
 router.get('/:id', (req, res) => {
