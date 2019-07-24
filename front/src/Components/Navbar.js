@@ -29,7 +29,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { playlist } = this.props;
+    const { playlist, user } = this.props;
 
     return (
       <Menu inverted color="black" fluid>
@@ -52,7 +52,7 @@ class Navbar extends Component {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <Link to="/user">
+        <Link to={`/user/${user.id}`}>
           <Menu.Item name='Profile' icon='user' />
         </Link>
         <Menu.Menu position="right">

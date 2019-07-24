@@ -3,19 +3,6 @@ const db = require('../db');
 
 const router = express.Router();
 
-// Route "READ all"
-router.get('/', (req, res) => {
-  db.query('SELECT * FROM user', (err, results) => {
-
-    if (err) {
-      return res.status(500).json({
-        error: err.message,
-        sql: err.sql
-      })
-    }
-    return res.json(results);
-  });
-});
 
 router.get('/:id', (req, res) => {
   db.query('SELECT * FROM user WHERE id = ?', req.params.id, (err, results) => {
@@ -31,6 +18,20 @@ router.get('/:id', (req, res) => {
       });
     }
     return res.json(results[0]);
+  });
+});
+
+router.put('/:id', (req, res) => {
+  db.query('UPDATE user SET ? WHERE user.id = ?', [req.body, req.params.id], (err, status) => {
+
+    if (err) {
+      return res.status(500).json({
+        error: err.message,
+        sql: err.sql
+      })
+    }
+
+    res.json(req.body);
   });
 });
 

@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { changeValue, editProfileSuccess, getProfileSuccess } from '../Action/index';
+import { changeProfile, editProfileSuccess, getProfileSuccess } from '../Action/index';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class EditProfile extends Component {
     axios.put(`/api/user/${id}`, { firstname, lastname, email })
       .then(res => res.data)
       .then(editProfile =>
-        this.props.edit(editProfile)
+        this.props.editProfile(editProfile)
       )
       .then(res => {
         if (res.error) {
@@ -74,14 +74,14 @@ class EditProfile extends Component {
 }
 
 const mapStateToProps = state => {
-  return state.user
+  return state.profile
 }
 
 
 
 const mapDispatchToProps = {
-  change: changeValue,
-  edit: editProfileSuccess,
+  change: changeProfile,
+  editProfile: editProfileSuccess,
   getProfile: getProfileSuccess
 }
 

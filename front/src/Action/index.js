@@ -9,6 +9,7 @@ import { CREATE_PLAYLIST_SUCCESS } from './types';
 import { CHANGE_VALUE_PLAYLIST } from './types';
 import { GET_PROFILE_SUCCESS } from './types';
 import { EDIT_PROFILE_SUCCESS } from './types';
+import { CHANGE_PROFILE } from './types';
 
 export function getPlaylistSuccess(playlist) {
   return {
@@ -96,5 +97,13 @@ export function editProfileSuccess(profile, editProfile) {
     type: EDIT_PROFILE_SUCCESS,
     profile: profile,
     editProfile: editProfile
+  }
+}
+
+export function changeProfile(name, value) {
+  return {
+    type: CHANGE_PROFILE,
+    name,
+    value
   }
 }
