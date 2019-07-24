@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import { LOGIN, LOGOUT } from '../Action/types';
 
 const token = localStorage.getItem('token');
 if (token) {
@@ -9,9 +10,9 @@ const initialState = token ? jwtDecode(token) : null;
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case 'LOGIN':
+    case LOGIN:
       return action.user;
-    case 'LOGOUT':
+    case LOGOUT:
       return null;
     default:
       return state;

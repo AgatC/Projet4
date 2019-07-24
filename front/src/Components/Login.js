@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
-  Button, Modal, Form, Label
+  Button, Modal, Form, Label, Container, Grid
 } from 'semantic-ui-react';
-// import axios from 'axios';
-// import { connect } from 'react-redux';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,33 +25,18 @@ export default class Login extends Component {
   }
 
   handleSubmit(event) {
-    // const { dispatch } = this.props;
+    const { dispatch } = this.props;
     event.preventDefault();
-    // axios.post('/api/auth/signin', { event })
-    //   .then(res => res.data)
-    //   .then(data => {
-    //     localStorage.setItem('token', data.token);
-    //     const { setToken } = this.props;
-    //     setToken(data.token);
-    //     axios.defaults.headers.authorization = `Bearer ${data.token}`;
-    //     dispatch({
-    //       type: 'LOGIN',
-    //       user
-    //     });
-    //   })
-    fetch('/api/auth/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    })
-      .then(res => res.json())
+    axios.post('/api/auth/signin', this.state)
+      .then(res => res.data)
       .then(data => {
         localStorage.setItem('token', data.token);
-        const { setToken } = this.props;
-        setToken(data.token);
-      });
+        const user = jwtDecode(data.token);
+        dispatch({
+          type: 'LOGIN',
+          user
+        });
+      })
   }
 
   validateForm() {
@@ -63,40 +49,50 @@ export default class Login extends Component {
     const { email, password } = this.state;
     return (
       <div className="Login">
-        <Modal trigger={<Button>Login</Button>}>
-          <Modal.Header>Please Login</Modal.Header>
-          <Modal.Content>
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Field>
-                <Label>Email</Label>
-                <Form.Input
-                  name="email"
-                  placeholder="Email"
-                  type="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Label>Password</Label>
-                <Form.Input
-                  name="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={this.handleChange}
-                  type="password"
-                />
-              </Form.Field>
-              <Button
-                type="submit"
-                disabled={!this.validateForm()}
-              >
-                Login
+        <Container>
+          <Grid centered>
+            <Modal trigger={<Button>Login</Button>}>
+              <Modal.Header>Please Login</Modal.Header>
+              <Modal.Content>
+                <Form onSubmit={this.handleSubmit}>
+                  <Form.Field>
+                    <Label>Email</Label>
+                    <Form.Input
+                      name="email"
+                      placeholder="Email"
+                      type="email"
+                      value={email}
+                      onChange={this.handleChange}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <Label>Password</Label>
+                    <Form.Input
+                      name="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={this.handleChange}
+                      type="password"
+                    />
+                  </Form.Field>
+                  <Button
+                    type="submit"
+                    disabled={!this.validateForm()}
+                  >
+                    Login
                   </Button>
-            </Form>
-          </Modal.Content>
-        </Modal>
+                </Form>
+              </Modal.Content>
+            </Modal>
+          </Grid>
+        </Container>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.auth
+});
+
+export default connect(mapStateToProps)(Login);

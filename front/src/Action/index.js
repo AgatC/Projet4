@@ -7,6 +7,8 @@ import { DELETE_TRACK_SUCCESS } from './types';
 import { DELETE_PLAYLIST_SUCCESS } from './types';
 import { CREATE_PLAYLIST_SUCCESS } from './types';
 import { CHANGE_VALUE_PLAYLIST } from './types';
+import { GET_PROFILE_SUCCESS } from './types';
+import { EDIT_PROFILE_SUCCESS } from './types';
 
 export function getPlaylistSuccess(playlist) {
   return {
@@ -79,5 +81,20 @@ export function createPlaylistSuccess(newPlaylist) {
   return {
     type: CREATE_PLAYLIST_SUCCESS,
     newPlaylist
+  }
+}
+
+export function getProfileSuccess(profile) {
+  return {
+    type: GET_PROFILE_SUCCESS,
+    profile
+  }
+}
+
+export function editProfileSuccess(profile, editProfile) {
+  return {
+    type: EDIT_PROFILE_SUCCESS,
+    profile: profile,
+    editProfile: editProfile
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import './App.css';
 import Login from './Components/Login';
 import Home from './Components/Home';
@@ -10,34 +11,26 @@ import Navbar from './Components/Navbar';
 import AddTrack from './Components/AddTrack';
 import EditTrack from './Components/EditTrack';
 import OnePlaylist from './Components/OnePlaylist';
+import EditProfile from './Components/EditProfile';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    const token = localStorage.getItem('token') || '';
-    this.state = {
-      token
-    };
-    this.setToken = this.setToken.bind(this);
   }
 
   componentDidMount() {
-    const { token } = this.props;
+    const { user } = this.props;
     axios.get('/api/playlist/', {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${user}`
       }
     })
       .then(res => res.data);
   }
 
-  setToken(token) {
-    this.setState({ token });
-  }
-
   render() {
-    const { token } = this.state;
-    if (!token) {
+    const { user } = this.props;
+    if (!user) {
       return (
         <Login setToken={this.setToken} />
       )
@@ -45,7 +38,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <Navbar token={token} />
+          <Navbar user={user} />
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
@@ -54,11 +47,15 @@ class App extends Component {
           <Route path="/track/edit-track/:id" component={EditTrack} />
           <Route path="/track/:id" component={PlaylistTracks} />
           <Route path="/playlist/edit" component={OnePlaylist} />
+          <Route path="/user/:id" component={EditProfile} />
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  user: state.auth
+});
 
-export default App;
+export default connect(mapStateToProps)(App);

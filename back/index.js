@@ -9,6 +9,7 @@ require('./env');
 const trackRouter = require('./routes/track');
 const playlistRouter = require('./routes/playlist');
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user')
 const db = require('./db');
 
 const app = express();
@@ -51,6 +52,7 @@ passport.use(new JwtStrategy(opts, function (jwtPayload, done) {
 app.use('/api/auth', authRouter);
 app.use('/api/track', trackRouter);
 app.use('/api/playlist', playlistRouter);
+app.use('/api/user', userRouter);
 
 
 app.listen(process.env.PORT || 5000, err => {

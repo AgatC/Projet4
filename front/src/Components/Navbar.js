@@ -6,15 +6,26 @@ import axios from 'axios';
 import { getPlaylistSuccess } from '../Action/index';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.logOut = this.logOut.bind(this);
+  }
   componentDidMount() {
     this.getPlaylist()
   }
 
   getPlaylist() {
     const { dispatch } = this.props;
-    axios.get('/api/playlist/')
+    axios.get('/api/playlist')
       .then(res => res.data)
       .then(playlist => dispatch(getPlaylistSuccess(playlist)));
+  }
+
+  logOut() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'LOGOUT'
+    });
   }
 
   render() {
@@ -41,7 +52,15 @@ class Navbar extends Component {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <Menu.Item name='Profile' icon='user' />
+        <Link to="/user">
+          <Menu.Item name='Profile' icon='user' />
+        </Link>
+        <Menu.Menu position="right">
+          <Menu.Item
+            icon="user"
+            onClick={this.logOut}>Logout
+          </Menu.Item>
+        </Menu.Menu>
       </Menu>
     )
   }

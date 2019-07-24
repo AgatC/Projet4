@@ -6,24 +6,30 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { changeValue, editTrackSuccess, getOneTrackSuccess } from '../Action/index';
 
-const options = [
-  { key: 'Electro', text: 'Electro', value: 8 },
-  { key: 'Rap', text: 'Rap', value: 7 },
-  { key: 'Pop', text: 'Pop', value: 6 },
-  { key: 'Nouvelle Vague', text: 'Nouvelle Vague', value: 9 },
-]
+// const options = [
+//   { key: 'Electro', text: 'Electro', value: 8 },
+//   { key: 'Rap', text: 'Rap', value: 7 },
+//   { key: 'Pop', text: 'Pop', value: 6 },
+//   { key: 'Nouvelle Vague', text: 'Nouvelle Vague', value: 9 },
+// ]
 
 class EditTrack extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      options: []
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangePlaylist = this.handleChangePlaylist.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getOneTrack = this.getOneTrack.bind(this);
+    this.getOptionPlaylist = this.getOptionPlaylist.bind(this);
+    this.handleChangeOptionPlaylist = this.handleChangeOptionPlaylist.bind(this);
   }
 
   componentDidMount() {
-    this.getOneTrack()
+    this.getOneTrack();
+    this.getOptionPlaylist()
   }
 
   getOneTrack() {
@@ -34,6 +40,17 @@ class EditTrack extends Component {
       .then(res => res.data)
       .then(oneTrack => this.props.getOne(oneTrack))
   }
+
+  getOptionPlaylist() {
+    axios.get('/api/playlist/option')
+      .then(res => res.data)
+      .then(option => this.setState({ options: option }));
+  }
+
+  handleChangeOptionPlaylist(event, { value }) {
+    this.setState({ playlist_id: value });
+  }
+
 
   handleChange(e) {
     const { name, value } = e.target;
@@ -67,6 +84,7 @@ class EditTrack extends Component {
 
   render() {
     const { playlist_id, title, artist, album_picture, youtube_url } = this.props
+    const { options } = this.state;
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
